@@ -1,59 +1,27 @@
-// بيانات فيديوهات افتراضية - يمكنك تعديلها لاحقًا
-const videos = [
-  {
-    title: "تقنية الواقع الافتراضي",
-    category: "تقنية",
-    views: 1200,
-    thumb: "images/vid1.jpg",
-    link: "#"
-  },
-  {
-    title: "مباراة مثيرة - ملخص",
-    category: "رياضة",
-    views: 980,
-    thumb: "images/vid2.jpg",
-    link: "#"
-  },
-  {
-    title: "تعلم البرمجة من الصفر",
-    category: "تعليم",
-    views: 1500,
-    thumb: "images/vid3.jpg",
-    link: "#"
-  },
-  {
-    title: "أفضل عروض ترفيهية",
-    category: "ترفيه",
-    views: 700,
-    thumb: "images/vid4.jpg",
-    link: "#"
-  },
-  {
-    title: "ابتكارات مستقبلية",
-    category: "تقنية",
-    views: 430,
-    thumb: "images/vid5.jpg",
-    link: "#"
-  }
-];
+import { db } from './firebase.js';
+import { collection, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js";
 
-// دالة عرض الفيديوهات
-function renderVideos(list) {
+export async function loadVideos() {
   const grid = document.getElementById('videoGrid');
+  if (!grid) return;
   grid.innerHTML = '';
-  if (list.length === 0) {
-    grid.innerHTML = '<div style="color:#ff9900;font-size:1.1rem;text-align:center;padding:40px 0;">لا توجد نتائج مطابقة</div>';
+  const q = query(collection(db, 'videos'), orderBy('created', 'desc'));
+  const snapshot = await getDocs(q);
+  if (snapshot.empty) {
+    grid.innerHTML = '<div style="color:#ff9900;font-size:1.1rem;text-align:center;padding:40px 0;">لا توجد فيديوهات بعد</div>';
     return;
   }
-  list.forEach((vid) => {
+  snapshot.forEach(doc => {
+    const vid = doc.data();
     grid.innerHTML += `
       <div class="video-card">
-        <img class="video-thumb" src="${vid.thumb}" alt="${vid.title}">
+        <video class="video-thumb" src="${vid.url}" controls poster="">
+        </video>
         <div class="video-info">
           <div class="video-title">${vid.title}</div>
-          <div class="video-meta">${vid.category} - ${vid.views} مشاهدة</div>
+          <div class="video-meta">${vid.category} - ${vid.views || 0} مشاهدة</div>
           <div class="video-actions">
-            <a href="${vid.link}" target="_blank">مشاهدة</a>
+            <a href="${vid.url}" target="_blank">مشاهدة</a>
           </div>
         </div>
       </div>
@@ -61,33 +29,5 @@ function renderVideos(list) {
   });
 }
 
-// البحث
-document.getElementById('searchBtn').onclick = function () {
-  const val = document.getElementById('searchInput').value.trim();
-  if (!val) {
-    renderVideos(videos);
-    return;
-  }
-  const results = videos.filter(v =>
-    v.title.includes(val) || v.category.includes(val)
-  );
-  renderVideos(results);
-};
-
-// دعم البحث الفوري عند الكتابة
-document.getElementById('searchInput').oninput = function () {
-  const val = this.value.trim();
-  if (!val) {
-    renderVideos(videos);
-    return;
-  }
-  const results = videos.filter(v =>
-    v.title.includes(val) || v.category.includes(val)
-  );
-  renderVideos(results);
-};
-
-// عرض الفيديوهات عند التحميل
-window.onload = function () {
-  renderVideos(videos);
-};
+window.loadVideos = loadVideos;
+window.onload = loadVideos;
