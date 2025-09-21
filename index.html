@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MediaHub - منصة الفيديو</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="images/logo.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <img src="images/logo.svg" class="logo" alt="شعار MediaHub">
+      <div class="site-title">
+        <h1>MediaHub</h1>
+        <span>منصة الفيديو والصور</span>
+      </div>
+      <nav>
+        <a href="#">الرئيسية</a>
+        <a href="#">التصنيفات</a>
+        <a href="#">الأكثر مشاهدة</a>
+        <a href="#">تسجيل الدخول</a>
+        <a href="#">تسجيل جديد</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <aside class="sidebar">
+      <h2>التصنيفات</h2>
+      <ul>
+        <li><a href="#">جميع الفئات</a></li>
+        <li><a href="#">تقنية</a></li>
+        <li><a href="#">رياضة</a></li>
+        <li><a href="#">ترفيه</a></li>
+        <li><a href="#">تعليم</a></li>
+        <li><a href="#">منوعات</a></li>
+      </ul>
+    </aside>
+    <section class="content">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="ابحث عن فيديو أو صورة ...">
+        <button id="searchBtn">بحث</button>
+      </div>
+      <div class="video-grid" id="videoGrid">
+        <!-- كروت الفيديوهات تظهر هنا -->
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-content">
+      <img src="images/logo.svg" class="footer-logo" alt="MediaHub Logo">
+      <span>&copy; 2025 MediaHub - منصة الفيديو</span>
+      <div class="footer-social">
+        <a href="#"><img src="images/twitter.svg" alt="تويتر"></a>
+        <a href="#"><img src="images/mail.svg" alt="إيميل"></a>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
