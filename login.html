@@ -6,6 +6,10 @@
   <title>تسجيل الدخول - MediaHub</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
 </head>
 <body>
   <header>
@@ -25,7 +29,7 @@
     <section class="user-form-section">
       <h2>تسجيل الدخول</h2>
       <form id="loginForm" class="user-form">
-        <input type="text" name="username" placeholder="اسم المستخدم" required>
+        <input type="email" name="email" placeholder="البريد الإلكتروني" required>
         <input type="password" name="password" placeholder="كلمة المرور" required>
         <button type="submit">دخول</button>
       </form>
@@ -41,6 +45,7 @@
       <span>&copy; 2025 MediaHub - منصة الفيديو</span>
     </div>
   </footer>
-  <script src="user.js"></script>
+  <script type="module" src="firebase.js"></script>
+  <script type="module" src="user.js"></script>
 </body>
 </html>
